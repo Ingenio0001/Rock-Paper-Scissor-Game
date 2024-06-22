@@ -50,6 +50,11 @@
       /* display: none; */
     }
 
+    #rps-container > #paper {
+      margin-right: 40px;
+      margin-bottom: 30px;
+    }
+
     #triangle {
       position: absolute;
       width: 60%;
@@ -73,8 +78,6 @@
 
     #paper {
       border: 15px solid hsl(230, 89%, 62%);
-      margin-right: 40px;
-      margin-bottom: 30px;
     }
 
     #scissors {
@@ -92,10 +95,15 @@
       display: none;
     }
 
+    #you-picked, #house-picked {
+      width: 30%;
+    }
+
     #you-picked p, #house-picked p {
       margin: 0px auto 50px;
       color: white;
       text-align: center;
+      font-size: 0.55rem;
     }
 
     #you-picked div:nth-child(2) {
@@ -119,6 +127,7 @@
     #result {
       margin-top: 20%;
       display: none;
+      text-align: center;
     }
 
     #result p:first-of-type {
@@ -211,4 +220,263 @@
 
     #credit a {
         color: white;
+        font-weight: 700;
+    }
+
+    @media (max-width: 1350px) {
+      
+      .picked {
+        width: 40%;
+      }
+
+      .picked-visi {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1275px) {
+      #rps-container {
+        width: 30%;
+      }
+    }
+
+    @media (max-width: 1111px) {
+      #score {
+        width: 25%;
+      }
+      #rps-container {
+        width: 35%;
+      }
+
+      .picked {
+        width: 45%;
+      }
+
+      .picked-visi {
+        display: none;
+      }
+    }
+
+    @media (max-width: 908px) {
+      #rps-container {
+        width: 45%;
+      }
+
+      .picked {
+        width: 55%;
+      }
+
+      .picked-visi {
+        display: none;
+      }
+    }
+
+    @media (max-width: 795px) {
+      #rps-container {
+        width: 50%;
+      }
+    }
+
+    @media (max-width: 745px) {
+      .picked {
+        width: 60%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .picked {
+        width: 65%;
+      }
+    }
+
+    @media (max-width: 639px) {
+      #rps-container {
+        width: 70%;
+      }
+
+      .picked {
+        width: 70%;
+      }
+    }
+
+    @media (max-width: 599px) {
+      #score-section {
+        width: 60%;
+        padding: 15px;
+        margin: 50px auto;
+      }
+  
+      #score-name img {
+        width: 90px;
+      }
+  
+      #score {
+        width: 25%;
+      }
+  
+      #score p:first-child {
+        font-size: 0.6rem;
+      }
+  
+      #score p:nth-child(2) {
+        font-size: 2rem;
+      }
+  
+      #rps-container {
+        width: 50%;
+      }
+  
+      #triangle {
+        position: absolute;
+        width: 60%;
+        top: 20%;
+        z-index: -9;
+      }
+  
+      #rock, #paper, #scissors {
+        padding: 20px;
+        height: 30px;
+        width: 30px;
+      }
+      
+      .picked {
+        width: 60%;
+      }
+  
+      .picked-visi {
+        display: none;
+      }
+  
+      #you-picked p, #house-picked p {
+        font-size: 0.5rem;
+      }
+  
+      #you-picked div:nth-child(2) {
+        margin-top: 50px;
+      }
+  
+      #unpicked-house {
+        width: 80px;
+        height: 80px;
+      }
+  
+      .house-choice {
+        display: none;
+      }
+  
+      #result {
+        margin-top: 25%;
+        display: none;
+      }
+  
+      #result p:first-of-type {
+        font-size: 0.6rem;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+  
+      #result p:nth-of-type(2) {
+        padding: 8px 25px;
+        font-size: 0.5rem;
+        text-align: center;
+      }
+  
+      #rules-button {
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        border: 1px solid white;
+        border-radius: 6px;
+        padding: 8px;
+        font-size: 0.6rem;
+      }
+  
+      #rules-modal > div {
+        width: 30%;
+        padding: 16px;
+      }
+      
+      #rules-modal > div > div:first-child img {
+        width: 15px;
+        height: 15px;
+      }
+  
+      #rules-modal > div > div:first-child {
+        font-weight: 700;
+        font-size: 1rem;
+        align-items: center;
+      }
+  
+  
+      #rules-modal > div > div:nth-child(2) {
+        margin: 16px 0px 0px 0px;
+      }
+
+      #credit {
+          width: 20%;
+      }
+
+      #credit p {
+        bottom: 39px;
+        font-size: 0.6rem;
+      }
+    }
+
+    @media (max-width: 475px) {
+      #rps-container {
+        width: 60%;
+      }
+
+      .picked {
+        width: 75%;
+      }
+    }
+
+    @media (max-width: 400px) {
+      #rps-container {
+        width: 70%;
+      }
+
+      .picked {
+        width: 80%;
+      }
+
+      #rules-button {
+        bottom: 30px;
+        right: 30px;
+        width: 30px;
+        padding: 8px;
+        font-size: 0.5rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .picked {
+        width: 90%;
+      }
+    }
+
+    @media (max-width: 321px) {
+
+      #score {
+        width: 30%;
+      }
+      #rps-container {
+        width: 90%;
+      }
+
+      #result p:nth-of-type(2) {
+        padding: 5px 15px;
+        font-size: 0.5rem;
+        text-align: center;
+      }
+
+      #credit {
+        width: 20%;
+      }
+
+      #credit p {
+        bottom: 39px;
+        font-size: 0.4rem;
+      }
     }

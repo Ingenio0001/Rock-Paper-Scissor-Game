@@ -55,7 +55,7 @@ optionRock.addEventListener("click", () => {
     userOptionImg.alt = userOption;
     userOptionImg.id = userOption;
     setTimeout(() => {
-        let houseOptionIndex = Math.floor(Math.random() * 2) + 1;
+        let houseOptionIndex = Math.floor(Math.random() * 3);
         houseOption = houseOptionsList[houseOptionIndex];
         let houseOptionRefObjs = houseOptionRef[houseOptionIndex];
         unpickedHouse.style.display = "none";
@@ -96,6 +96,38 @@ optionPaper.addEventListener("click", () => {
     userOptionImg.src = userOptionSrc;
     userOptionImg.alt = userOption;
     userOptionImg.id = userOption;
+    setTimeout(() => {
+        let houseOptionIndex = Math.floor(Math.random() * 3);
+        houseOption = houseOptionsList[houseOptionIndex];
+        let houseOptionRefObjs = houseOptionRef[houseOptionIndex];
+        unpickedHouse.style.display = "none";
+        houseOptionImg.style.display = "block";
+        houseOptionImg.src = houseOptionRefObjs.src;
+        houseOptionImg.alt = houseOptionRefObjs.alt;
+        houseOptionImg.id = houseOption;
+    },2000)
+    setTimeout(() => {
+        if ((userOption == "rock" && houseOption == "scissors") || (userOption == "scissors" && houseOption == "paper") || (userOption == "paper" && houseOption == "rock") ) {
+            resultModal.style.display = "block";
+            result.innerText = "YOU WIN";
+            score += 1;
+            scoreHtml.innerText = score;
+        } else if (userOption == houseOption) {
+            resultModal.style.display = "block";
+            result.innerText = "DRAW";
+        } else {
+            resultModal.style.display = "block";
+            result.innerText = "YOU LOSE";
+        }
+
+        playAgainButton.addEventListener("click", () => {
+            rpsContainer.style.display = "flex";
+            unpickedHouse.style.display = "block";
+            houseOptionImg.style.display = "none";
+            pickedModal.style.display = "none";
+            resultModal.style.display = "none";
+        })
+    }, 2200)    
 });
 
 optionScissors.addEventListener("click", () => {
@@ -106,4 +138,36 @@ optionScissors.addEventListener("click", () => {
     userOptionImg.src = userOptionSrc;
     userOptionImg.alt = userOption;
     userOptionImg.id = userOption;
+    setTimeout(() => {
+        let houseOptionIndex = Math.floor(Math.random() * 3);
+        houseOption = houseOptionsList[houseOptionIndex];
+        let houseOptionRefObjs = houseOptionRef[houseOptionIndex];
+        unpickedHouse.style.display = "none";
+        houseOptionImg.style.display = "block";
+        houseOptionImg.src = houseOptionRefObjs.src;
+        houseOptionImg.alt = houseOptionRefObjs.alt;
+        houseOptionImg.id = houseOption;
+    },2000)
+    setTimeout(() => {
+        if ((userOption == "rock" && houseOption == "scissors") || (userOption == "scissors" && houseOption == "paper") || (userOption == "paper" && houseOption == "rock") ) {
+            resultModal.style.display = "block";
+            result.innerText = "YOU WIN";
+            score += 1;
+            scoreHtml.innerText = score;
+        } else if (userOption == houseOption) {
+            resultModal.style.display = "block";
+            result.innerText = "DRAW";
+        } else {
+            resultModal.style.display = "block";
+            result.innerText = "YOU LOSE";
+        }
+
+        playAgainButton.addEventListener("click", () => {
+            rpsContainer.style.display = "flex";
+            unpickedHouse.style.display = "block";
+            houseOptionImg.style.display = "none";
+            pickedModal.style.display = "none";
+            resultModal.style.display = "none";
+        })
+    }, 2200)
 });
