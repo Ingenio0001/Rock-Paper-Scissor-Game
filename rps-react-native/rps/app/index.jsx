@@ -1,5 +1,5 @@
-import { StyleSheet, useColorScheme, Text, View, Image, ImageBackground, Pressable, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, useColorScheme, Text, View, Image, ImageBackground, Pressable, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import {Link} from 'expo-router'
 // import { RadialGradient } from 'expo-linear-gradient'
 import { Colors } from '../constants/Colors'
@@ -7,6 +7,9 @@ import { Colors } from '../constants/Colors'
 import triangle from '../assets/bg-triangle.png'
 import closeIcon from '../assets/icon-close.png'
 import rulesImg from '../assets/image-rules.png'
+import paperImage from '../assets/icon-paper.png'
+import scissorsImage from '../assets/icon-scissors.png'
+import rockImage from '../assets/icon-rock.png'
 
 import Picked from '../components/Picked'
 import ScoreSection from '../components/ScoreSection'
@@ -16,29 +19,74 @@ import Rock from '../components/Rock'
 
 // themed components
 import ThemedView from '../components/ThemedView'
+import ChoiceSkeleton from '../components/ChoiceSkeleton'
 // import ThemedLogo from '../components/ThemedLogo'
 import Spacer from '../components/Spacer'
 // import ThemedText from '../components/ThemedText'
-
-// const Home = () => {
-//     return (
-//         <View>
-//             <Text>
-//                 Is this working????
-//             </Text>
-//         </View>
-//     )
-// }
 
 const Home = () => {
 
     const colorScheme = useColorScheme()
     const theme = Colors[colorScheme] ?? Colors.light
 
+    const [userClicked, setUserClicked] = useState(null)
+    const [userClickedImage, setUserClickedImage] = useState(null)
+    const [houseOption, setHouseOption] = useState(null)
+    const [result, setResult] = useState('')
+    const [score, setScore] = useState(0)
+
+    
+
+    const handleSubmit = ( userChoice, userChoiceImage ) => {
+        
+        setUserClicked(userChoice)
+        setUserClickedImage(userChoiceImage)
+
+        const houseOptionIndex = Math.floor(Math.random() * 3)
+
+        setHouseOption(houseOptionsList[houseOptionIndex])
+        
+        console.log(result)
+        // console.log(userClickedImage)
+    }
+
+
+    const houseOptionsList = [
+        {choice: 'rock', image: rockImage}, 
+        {choice: 'paper', image: paperImage}, 
+        {choice: 'scissors', image: scissorsImage}
+    ]
+
+    useEffect( () => {
+        if(userClicked && houseOption) {
+            if (
+                (userClicked == 'rock' && houseOption.choice == 'scissors') ||
+                (userClicked == 'scissors' && houseOption.choice == 'paper') ||
+                (userClicked == 'paper' && houseOption.choice == 'rock')
+                ) {
+                    setResult('YOU WIN')
+                } else if (userClicked == houseOption.choice) {
+                    setResult('DRAW')
+                } else {
+                    setResult('YOU LOSE')
+                }
+        }
+                    
+    }, [userClicked, houseOption])
+
+    useEffect( () => {
+        if (result == 'YOU WIN') {
+            setScore(prevScore => prevScore + 1)
+        }
+    }, [result])
+
+    const handleCloseModal = () => {
+        console.log('testing 12')
+    }
 
     return (
         <ThemedView style={styles.container}>
-            <ScoreSection /> 
+            <ScoreSection score = {score}/> 
 
             <Spacer />
             {/* <ImageBackground 
@@ -48,33 +96,53 @@ const Home = () => {
                     resizeMode='contain'
                     width={'20%'}>
                         <View style={styles.pickerContainer}>
-                            <Paper style={styles.paper}/>
+                            <ChoiceSkeleton 
+                                onPress = {handleSubmit}
+                                choice = {"paper"} 
+                                image = {paperImage}
+                            />
                             <Spacer />
-                            <Scissors />
-                            <Rock />       
+                            <ChoiceSkeleton  
+                                onPress = {handleSubmit}
+                                choice = {'scissors'} 
+                                image = {scissorsImage}
+                            />
+                            <ChoiceSkeleton  
+                                onPress = {handleSubmit}
+                                choice = {'rock'} 
+                                image = {rockImage}
+                            />       
                         </View>
             </ImageBackground>  */}
 
-            <Picked />
+            <Picked 
+                clicked = {userClicked} 
+                clickedImage = {userClickedImage}
+                houseChoice = {houseOption ? houseOption.choice : null}
+                houseChoiceImage = {houseOption ? houseOption.image : null}
+                result = {result}
+            />
 
             <Pressable style = {styles.rulesBtn}>
                 <Text style = {{color: '#fff', fontSize: 8}}>RULES</Text>
             </Pressable>
-                
-            <View style = {styles.rulesModal}>
-                <View style = {styles.rulesModalContent}>
-                    <View style = {styles.rulesModalTitleContainer}>
-                        <Text style = {styles.rulesModalTitle}>RULES</Text>
-                        <TouchableOpacity>
-                            <Image source={closeIcon}/>    
-                        </TouchableOpacity>
-                    </View>
+            {/* <TouchableWithoutFeedback onPress = {handleCloseModal}>
+                <View  style = {styles.rulesModal}>
+                    <View style = {styles.rulesModalContent}>
+                        <View style = {styles.rulesModalTitleContainer}>
+                            <Text style = {styles.rulesModalTitle}>RULES</Text>
+                            <TouchableOpacity>
+                                <Image source={closeIcon}/>    
+                            </TouchableOpacity>
+                        </View>
 
-                    <View style = {{alignItems: 'center'}} >
-                        <Image source={rulesImg} resizeMode='contain' style ={styles.rulesImage}/>
+                        <View style = {{alignItems: 'center'}} >
+                            <Image source={rulesImg} resizeMode='contain' style ={styles.rulesImage}/>
+                        </View>
                     </View>
-                </View>
-            </View>
+                </View>    
+            </TouchableWithoutFeedback> */}
+            
         </ThemedView>
     )
 }
@@ -137,7 +205,8 @@ const styles = StyleSheet.create({
         height: '100%',
         // justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: '50%'
+        paddingTop: '50%',
+        backgroundColor: 'hsla(240, 26%, 39%, 0.81)'
     },
     rulesModalContent: {
         width: '65%',

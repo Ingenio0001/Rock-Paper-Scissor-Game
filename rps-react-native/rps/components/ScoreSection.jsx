@@ -3,7 +3,7 @@ import Spacer from "./Spacer"
 import { Image, Text, StyleSheet, View } from "react-native"
 import logo from '../assets/logo.png'
 
-const scoreSection = () => {
+const scoreSection = ({score}) => {
     return (
         <ThemedView style={styles.scoreContainer}>
             <View>
@@ -14,7 +14,7 @@ const scoreSection = () => {
 
             <View style={styles.scoreView}>
                 <Text style={styles.scoreTitle}>SCORE</Text>
-                <Text style={styles.score}>0</Text>
+                <Text style={styles.score}>{score}</Text>
             </View>
         </ThemedView>
     )

@@ -1,21 +1,34 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
-import Paper from "./Paper"
-import Rock from './Rock'
-import Scissors from './Scissors'
+// import Paper from "./Paper"
+// import Rock from './Rock'
+// import Scissors from './Scissors'
 
+import ChoiceSkeleton from './ChoiceSkeleton'
 import Spacer from './Spacer'
+import { useEffect, useState } from "react"
 
-const Picked = () => {
-    const result = 'WIN' //Logic goes here
+import paperImage from '../assets/icon-paper.png'
+import scissorsImage from '../assets/icon-scissors.png'
+import rockImage from '../assets/icon-rock.png'
+
+const Picked = ({ clicked, clickedImage, houseChoice, houseChoiceImage, result }) => {
+
+    // useEffect(() => {
+    //     setUserChoice(userClicked)
+    //     setUserChoiceImage(userClickedImage)
+    // }, [userClicked, userClickedImage])
+    // const result = '' //Logic goes here
+    // const [houseChoice, setHouseChoice] = useState(calPicked)
+    // const [houseChoiceImage, setHouseChoiceImage] = useState(calPickedImage)
     return (
         <View style = {styles.pickedContainer}>
             <View style = {styles.youPicked}>
                 <Text style = {styles.pickedTitle}>YOU PICKED</Text>
-                <Paper />
+                <ChoiceSkeleton choice = {clicked} image = {clickedImage}/>
             </View>
 
             <View style = {styles.resultContainer}>
-                <Text style = {styles.result}>YOU {result}</Text>
+                <Text style = {styles.result}>{result}</Text>
                 <TouchableOpacity style = {styles.tryAgainBtn}>
                     <Text style = {{fontSize: 12}}>PLAY AGAIN</Text>
                 </TouchableOpacity>
@@ -23,7 +36,7 @@ const Picked = () => {
 
             <View style = {styles.housePicked}>
                 <Text style = {styles.pickedTitle}>THE HOUSE PICKED</Text>
-                <Rock />
+                <ChoiceSkeleton choice = {houseChoice} image = {houseChoiceImage}/>
             </View>
         </View>
     )
