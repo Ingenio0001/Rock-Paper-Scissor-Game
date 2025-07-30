@@ -11,8 +11,12 @@ import paperImage from '../assets/icon-paper.png'
 import scissorsImage from '../assets/icon-scissors.png'
 import rockImage from '../assets/icon-rock.png'
 
-const Picked = ({ clicked, clickedImage, houseChoice, houseChoiceImage, result }) => {
+const Picked = ({ clicked, clickedImage, houseChoice, houseChoiceImage, result, resetClicked, resetClickedImage }) => {
 
+    const handleResetBtn =() => {
+        resetClicked(null)
+        resetClickedImage(null)
+    }
     // useEffect(() => {
     //     setUserChoice(userClicked)
     //     setUserChoiceImage(userClickedImage)
@@ -29,7 +33,7 @@ const Picked = ({ clicked, clickedImage, houseChoice, houseChoiceImage, result }
 
             <View style = {styles.resultContainer}>
                 <Text style = {styles.result}>{result}</Text>
-                <TouchableOpacity style = {styles.tryAgainBtn}>
+                <TouchableOpacity style = {styles.tryAgainBtn} onPress={handleResetBtn}>
                     <Text style = {{fontSize: 12}}>PLAY AGAIN</Text>
                 </TouchableOpacity>
             </View>

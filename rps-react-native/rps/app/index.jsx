@@ -34,6 +34,7 @@ const Home = () => {
     const [houseOption, setHouseOption] = useState(null)
     const [result, setResult] = useState('')
     const [score, setScore] = useState(0)
+    const [modalOpen, setModalOpen] = useState(false)
 
     
 
@@ -80,68 +81,93 @@ const Home = () => {
         }
     }, [result])
 
+    const handleOpenModal = () => {
+        if (!modalOpen) {
+            setModalOpen(true)
+        }
+    }
+
     const handleCloseModal = () => {
-        console.log('testing 12')
+        if (modalOpen) {
+            setModalOpen(false)
+        }
     }
 
     return (
-        <ThemedView style={styles.container}>
+        <ThemedView style={styles.container} safe = {true}>
             <ScoreSection score = {score}/> 
 
             <Spacer />
-            {/* <ImageBackground 
-                    source={triangle} 
-                    imageStyle={styles.pickerBgImg}
-                    style= {{marginRight: 20}}
-                    resizeMode='contain'
-                    width={'20%'}>
-                        <View style={styles.pickerContainer}>
-                            <ChoiceSkeleton 
-                                onPress = {handleSubmit}
-                                choice = {"paper"} 
-                                image = {paperImage}
-                            />
-                            <Spacer />
-                            <ChoiceSkeleton  
-                                onPress = {handleSubmit}
-                                choice = {'scissors'} 
-                                image = {scissorsImage}
-                            />
-                            <ChoiceSkeleton  
-                                onPress = {handleSubmit}
-                                choice = {'rock'} 
-                                image = {rockImage}
-                            />       
-                        </View>
-            </ImageBackground>  */}
 
-            <Picked 
-                clicked = {userClicked} 
-                clickedImage = {userClickedImage}
-                houseChoice = {houseOption ? houseOption.choice : null}
-                houseChoiceImage = {houseOption ? houseOption.image : null}
-                result = {result}
-            />
+            {
+                !userClicked && 
+                    <ImageBackground 
+                        source={triangle} 
+                        imageStyle={styles.pickerBgImg}
+                        style= {{marginRight: 20}}
+                        resizeMode='contain'
+                        width={'20%'}>
+                            <View style={styles.pickerContainer}>
+                                <ChoiceSkeleton 
+                                    onPress = {handleSubmit}
+                                    choice = {"paper"} 
+                                    image = {paperImage}
+                                />
+                                <Spacer />
+                                <ChoiceSkeleton  
+                                    onPress = {handleSubmit}
+                                    choice = {'scissors'} 
+                                    image = {scissorsImage}
+                                />
+                                <ChoiceSkeleton  
+                                    onPress = {handleSubmit}
+                                    choice = {'rock'} 
+                                    image = {rockImage}
+                                />       
+                            </View>
+                    </ImageBackground>                 
+            }
 
-            <Pressable style = {styles.rulesBtn}>
+
+            {
+                userClicked && <Picked 
+                    clicked = {userClicked} 
+                    clickedImage = {userClickedImage}
+                    houseChoice = {houseOption ? houseOption.choice : null}
+                    houseChoiceImage = {houseOption ? houseOption.image : null}
+                    result = {result}
+                    resetClicked = {setUserClicked}
+                    resetClickedImage = {setUserClickedImage}
+                />
+            }
+            
+
+            <Pressable style = {styles.rulesBtn} onPress={handleOpenModal}>
                 <Text style = {{color: '#fff', fontSize: 8}}>RULES</Text>
             </Pressable>
-            {/* <TouchableWithoutFeedback onPress = {handleCloseModal}>
-                <View  style = {styles.rulesModal}>
-                    <View style = {styles.rulesModalContent}>
-                        <View style = {styles.rulesModalTitleContainer}>
-                            <Text style = {styles.rulesModalTitle}>RULES</Text>
-                            <TouchableOpacity>
-                                <Image source={closeIcon}/>    
-                            </TouchableOpacity>
-                        </View>
 
-                        <View style = {{alignItems: 'center'}} >
-                            <Image source={rulesImg} resizeMode='contain' style ={styles.rulesImage}/>
-                        </View>
-                    </View>
-                </View>    
-            </TouchableWithoutFeedback> */}
+            {
+                modalOpen && 
+                <TouchableWithoutFeedback onPress = {handleCloseModal}>
+                    <View  style = {styles.rulesModal}>
+                        <TouchableWithoutFeedback onPress={() => {}}>
+                            <View style = {styles.rulesModalContent}>
+                                <View style = {styles.rulesModalTitleContainer}>
+                                    <Text style = {styles.rulesModalTitle}>RULES</Text>
+                                    <TouchableOpacity onPress={handleCloseModal}>
+                                        <Image source={closeIcon}/>    
+                                    </TouchableOpacity>
+                                </View>
+
+                                <View style = {{alignItems: 'center'}} >
+                                    <Image source={rulesImg} resizeMode='contain' style ={styles.rulesImage}/>
+                                </View>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>    
+                </TouchableWithoutFeedback>
+            }
+            
             
         </ThemedView>
     )
@@ -203,9 +229,8 @@ const styles = StyleSheet.create({
         top: 0,
         width: '100%',
         height: '100%',
-        // justifyContent: 'center',
+        justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: '50%',
         backgroundColor: 'hsla(240, 26%, 39%, 0.81)'
     },
     rulesModalContent: {
